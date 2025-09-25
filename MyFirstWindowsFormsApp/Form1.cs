@@ -18,6 +18,11 @@ public partial class Form1 : Form
         myButton = new Button();
         myButton.Location = new System.Drawing.Point(50, 80); // Позиция под текстовым полем
         myButton.Text = "Нажми меня!"; // Текст на кнопке
+        myButton.Width = 200; // Ширина кнопки
+        myButton.Height = 70; // Высота кнопки
+        myButton.BackColor = System.Drawing.Color.LightBlue; // Цвет фона кнопки
+        myButton.Font = new System.Drawing.Font("Arial", 14, System.Drawing.FontStyle.Bold); // Шрифт кнопки    
+        
 
         // === Обработчик события нажатия на кнопку ===
         myButton.Click += MyButton_Click; // Подписываемся на событие Click
