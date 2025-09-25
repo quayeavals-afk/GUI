@@ -31,8 +31,7 @@ partial class Form1
         this.components = new System.ComponentModel.Container();
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         this.ClientSize = new System.Drawing.Size(1500, 650);
-        this.BackColor = Color.Red;
-        this.ForeColor = Color.Red;
+        this.BackColor = Color.Blue;
         this.StartPosition = FormStartPosition.CenterScreen;
         
     }
