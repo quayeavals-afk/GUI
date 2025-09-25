@@ -12,3 +12,4 @@ C:\Users\quaye\WebstormProjects\untitled\cods\C-Sharp\GUI\MyFirstWindowsFormsApp
 C:\Users\quaye\WebstormProjects\untitled\cods\C-Sharp\GUI\MyFirstWindowsFormsApp\obj\Debug\net9.0-windows\MyFirstWindowsFormsApp.pdb
 C:\Users\quaye\WebstormProjects\untitled\cods\C-Sharp\GUI\MyFirstWindowsFormsApp\obj\Debug\net9.0-windows\MyFirstWindowsFormsApp.genruntimeconfig.cache
 C:\Users\quaye\WebstormProjects\untitled\cods\C-Sharp\GUI\MyFirstWindowsFormsApp\obj\Debug\net9.0-windows\ref\MyFirstWindowsFormsApp.dll
+C:\Users\quaye\WebstormProjects\untitled\cods\C-Sharp\GUI\MyFirstWindowsFormsApp\obj\Debug\net9.0-windows\MyFirstWindowsFormsApp.sourcelink.json

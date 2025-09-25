@@ -33,6 +33,8 @@ partial class Form1
         this.ClientSize = new System.Drawing.Size(1500, 650);
         this.BackColor = Color.Blue;
         this.StartPosition = FormStartPosition.CenterScreen;
+        this.Text = "My First Windows Form App(clicker)";
+        this.ShowIcon = false;
         
     }
 
