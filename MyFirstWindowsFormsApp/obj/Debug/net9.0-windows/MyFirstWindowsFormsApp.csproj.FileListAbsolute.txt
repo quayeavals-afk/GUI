@@ -1,0 +1,14 @@
+C:\Users\quaye\WebstormProjects\untitled\cods\C-Sharp\GUI\MyFirstWindowsFormsApp\bin\Debug\net9.0-windows\MyFirstWindowsFormsApp.exe
+C:\Users\quaye\WebstormProjects\untitled\cods\C-Sharp\GUI\MyFirstWindowsFormsApp\bin\Debug\net9.0-windows\MyFirstWindowsFormsApp.deps.json
+C:\Users\quaye\WebstormProjects\untitled\cods\C-Sharp\GUI\MyFirstWindowsFormsApp\bin\Debug\net9.0-windows\MyFirstWindowsFormsApp.runtimeconfig.json
+C:\Users\quaye\WebstormProjects\untitled\cods\C-Sharp\GUI\MyFirstWindowsFormsApp\bin\Debug\net9.0-windows\MyFirstWindowsFormsApp.dll
+C:\Users\quaye\WebstormProjects\untitled\cods\C-Sharp\GUI\MyFirstWindowsFormsApp\bin\Debug\net9.0-windows\MyFirstWindowsFormsApp.pdb
+C:\Users\quaye\WebstormProjects\untitled\cods\C-Sharp\GUI\MyFirstWindowsFormsApp\obj\Debug\net9.0-windows\MyFirstWindowsFormsApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\quaye\WebstormProjects\untitled\cods\C-Sharp\GUI\MyFirstWindowsFormsApp\obj\Debug\net9.0-windows\MyFirstWindowsFormsApp.AssemblyInfoInputs.cache
+C:\Users\quaye\WebstormProjects\untitled\cods\C-Sharp\GUI\MyFirstWindowsFormsApp\obj\Debug\net9.0-windows\MyFirstWindowsFormsApp.AssemblyInfo.cs
+C:\Users\quaye\WebstormProjects\untitled\cods\C-Sharp\GUI\MyFirstWindowsFormsApp\obj\Debug\net9.0-windows\MyFirstWindowsFormsApp.csproj.CoreCompileInputs.cache
+C:\Users\quaye\WebstormProjects\untitled\cods\C-Sharp\GUI\MyFirstWindowsFormsApp\obj\Debug\net9.0-windows\MyFirstWindowsFormsApp.dll
+C:\Users\quaye\WebstormProjects\untitled\cods\C-Sharp\GUI\MyFirstWindowsFormsApp\obj\Debug\net9.0-windows\refint\MyFirstWindowsFormsApp.dll
+C:\Users\quaye\WebstormProjects\untitled\cods\C-Sharp\GUI\MyFirstWindowsFormsApp\obj\Debug\net9.0-windows\MyFirstWindowsFormsApp.pdb
+C:\Users\quaye\WebstormProjects\untitled\cods\C-Sharp\GUI\MyFirstWindowsFormsApp\obj\Debug\net9.0-windows\MyFirstWindowsFormsApp.genruntimeconfig.cache
+C:\Users\quaye\WebstormProjects\untitled\cods\C-Sharp\GUI\MyFirstWindowsFormsApp\obj\Debug\net9.0-windows\ref\MyFirstWindowsFormsApp.dll
