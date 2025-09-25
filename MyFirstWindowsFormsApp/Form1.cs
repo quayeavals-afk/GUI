@@ -11,12 +11,14 @@ public partial class Form1 : Form
         // === Создание и настройка текстового поля ===
         myTextBox = new TextBox();
         myTextBox.Location = new System.Drawing.Point(50, 50); // Позиция (X, Y)
-        myTextBox.Width = 200; // Ширина
+        myTextBox.Width = 400; // Ширина
+        myTextBox.Multiline = true;
+        myTextBox.Height = 400; // Ширина        
         myTextBox.Text = "Hello, World!"; // Текст по умолчанию
 
         // === Создание и настройка кнопки ===
         myButton = new Button();
-        myButton.Location = new System.Drawing.Point(50, 80); // Позиция под текстовым полем
+        myButton.Location = new System.Drawing.Point(450, 50); // Позиция под текстовым полем
         myButton.Text = "Нажми меня!"; // Текст на кнопке
         myButton.Width = 200; // Ширина кнопки
         myButton.Height = 70; // Высота кнопки
@@ -33,8 +35,8 @@ public partial class Form1 : Form
 
         // === Настройка самой формы ===
         this.Text = "Мое первое приложение на WinForms"; // Заголовок окна
-        this.Width = 400; // Ширина окна
-        this.Height = 250; // Высота окна
+        this.Width = 1500; // Ширина окна
+        this.Height = 800; // Высота окна
     }
     // Обработчик события нажатия кнопки
     private void MyButton_Click(object sender, EventArgs e)
