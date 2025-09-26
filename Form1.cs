@@ -1,16 +1,19 @@
 using System;
-using System.ComponentModel;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+
 namespace GUI;
 
 public partial class Form1 : Form
 {
     private List<BasicBlock> blocks = new List<BasicBlock>();
     private int nextYPosition = 20;
-    private string saveFilePath = "blocks.jsom"; // Путь к файлу сохранения
-
 
     public Form1()
     {
+        this.AutoScroll = true;
+
         this.Size = new Size(1255, 600);
 
         Button addButton = new Button();
@@ -21,54 +24,81 @@ public partial class Form1 : Form
 
         this.Controls.Add(addButton);
         nextYPosition = 100;
-
         AddNewBlock(null, EventArgs.Empty);
-        AddStoryBlock();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private void AddNewBlock(object sender, EventArgs e)
     {
         BasicBlock newBlock;
         newBlock = new RedBlock();
 
+        newBlock.DeleteRequested += (s, e) => RemoveBlock((BasicBlock)s);
+        newBlock.ContinuedRequested += (s,e) => ContinuedBlock((BasicBlock)s);
+
+
         newBlock.Location = new Point(20, nextYPosition);
 
         this.Controls.Add(newBlock);
         blocks.Add(newBlock);
 
-        Console.Write($"\n какие:{blocks} \n всего: {blocks.Count}");
-
-
         nextYPosition += newBlock.Height + 10;
-
-        if (nextYPosition > this.Height - 100)
-        {
-            this.Height += 100;
-        }
     }
-
-    private void AddStoryBlock()
+    private void ContinuedBlock(BasicBlock blockToRemove)
     {
-        StoryBlock storyBlock = new StoryBlock();
-        storyBlock.Location = new Point(20, nextYPosition);
-
-        this.Controls.Add(storyBlock);
-        blocks.Add(storyBlock);
-
-        nextYPosition += storyBlock.Height + 10;
-
-        if (nextYPosition > this.Height - 100)
-        {
-            this.Height += 100;
-        }
+        RemoveBlock(blockToRemove);
+        MessageBox.Show("   Умничка!!!");
     }
-
-
+    private void RemoveBlock(BasicBlock blockToRemove)
+    {
+        this.Controls.Remove(blockToRemove);
+        blocks.Remove(blockToRemove);
+        RearrangeBlocks();
+    }
+    private void RearrangeBlocks()
+    {   
+        int currentY = 100; 
+        
+        foreach (var block in blocks)
+        {
+            block.Location = new Point(20, currentY);
+            currentY += block.Height + 10;
+        }
+        
+        nextYPosition = currentY;
+    }
 }
+
+
+
+
+
+
+
+
+
+
 
 // Базовый класс для всех блоков
 public class BasicBlock : UserControl
 {
+    public event EventHandler DeleteRequested;
+    public event EventHandler ContinuedRequested;
+
+
     protected TextBox textBox, date;
     protected Button button, button1;
 
@@ -81,7 +111,7 @@ public class BasicBlock : UserControl
 
         // Настройки текстового поля
         textBox = new TextBox();
-        textBox.Location = new Point(10, 20);
+        textBox.Location = new Point(18, 18);
         textBox.Width = 700;
         textBox.Text = "Введите текст";
 
@@ -91,7 +121,7 @@ public class BasicBlock : UserControl
         date = new TextBox();
         date.Location = new Point(820, 20);
         date.Width = 230;
-        date.Font = new Font("Arial", 11); 
+        date.Font = new Font("Arial", 11);
         date.Text = ($"дата создания: {thisDay.ToString("d")}");
         date.BackColor = Color.Blue;
 
@@ -103,6 +133,7 @@ public class BasicBlock : UserControl
         button.Text = "✔";
         button.BackColor = SystemColors.Control;
         button.BackColor = Color.Green;
+        button.Click += (s, e) => ContinuedRequested?.Invoke(this, EventArgs.Empty);
 
 
         // Настройки кнопки ✔
@@ -112,7 +143,7 @@ public class BasicBlock : UserControl
         button1.Text = "✘";
         button1.BackColor = SystemColors.Control;
         button1.BackColor = Color.Red;
-
+        button1.Click += (s, e) => DeleteRequested?.Invoke(this, EventArgs.Empty);
 
 
         this.Controls.Add(textBox);
@@ -123,22 +154,20 @@ public class BasicBlock : UserControl
     }
 }
 
+
+
+
+
+
+
+
+
+
 // Красный блок
 public class RedBlock : BasicBlock
 {
     public RedBlock()
     {
-        this.BackColor = Color.BlueViolet;
-    }
-}
-
-// Блок для историй
-public class StoryBlock : BasicBlock
-{
-    public StoryBlock()
-    {
-        textBox.Text = "история";
         this.BackColor = Color.DarkRed;
     }
-    
 }
