@@ -1,27 +1,29 @@
+using System;
+using System.ComponentModel;
 namespace GUI;
 
 public partial class Form1 : Form
 {
     private List<BasicBlock> blocks = new List<BasicBlock>();
     private int nextYPosition = 20;
+    private string saveFilePath = "blocks.jsom"; // Путь к файлу сохранения
+
 
     public Form1()
     {
-        this.Size = new Size(555, 600);
+        this.Size = new Size(1255, 600);
 
         Button addButton = new Button();
         addButton.Text = "Добавить новый блок";
         addButton.Location = new Point(20, 20);
-        addButton.Size = new Size(500, 30);
+        addButton.Size = new Size(1200, 60);
         addButton.Click += AddNewBlock;
 
         this.Controls.Add(addButton);
-        nextYPosition = 60;
+        nextYPosition = 100;
 
         AddNewBlock(null, EventArgs.Empty);
         AddStoryBlock();
-        AddpopaBlock();
-        AddStory1Block();
     }
 
     private void AddNewBlock(object sender, EventArgs e)
@@ -33,6 +35,9 @@ public partial class Form1 : Form
 
         this.Controls.Add(newBlock);
         blocks.Add(newBlock);
+
+        Console.Write($"\n какие:{blocks} \n всего: {blocks.Count}");
+
 
         nextYPosition += newBlock.Height + 10;
 
@@ -57,62 +62,64 @@ public partial class Form1 : Form
             this.Height += 100;
         }
     }
-    private void AddpopaBlock()
-    {
-        popaBlock PopaBlock = new popaBlock();
-        PopaBlock.Location = new Point(20, nextYPosition);
-        this.Controls.Add(PopaBlock);
-        blocks.Add(PopaBlock);
 
-        nextYPosition += PopaBlock.Height + 10;
 
-        if (nextYPosition > this.Height - 100)
-        {
-            this.Height += 100;
-        }
-    }
-    private void AddStory1Block()
-    {
-        Story1Block story1Block = new Story1Block();
-        story1Block.Location = new Point(20, nextYPosition);
-        this.Controls.Add(story1Block);
-        blocks.Add(story1Block);
-
-        nextYPosition += story1Block.Height + 10;
-        if (nextYPosition > this.Height - 100)
-        {
-            this.Height += 100;
-        }
-    }
 }
 
 // Базовый класс для всех блоков
 public class BasicBlock : UserControl
 {
-    protected TextBox textBox;
-    protected Button button;
-    
+    protected TextBox textBox, date;
+    protected Button button, button1;
+
+
     public BasicBlock()
     {
         // Настройки внешнего вида блока
-        this.Size = new Size(500, 60);
+        this.Size = new Size(1200, 60);
         this.BackColor = Color.LightGray;
-        
+
         // Настройки текстового поля
         textBox = new TextBox();
         textBox.Location = new Point(10, 20);
-        textBox.Width = 300;
+        textBox.Width = 700;
         textBox.Text = "Введите текст";
-        
-        // Настройки кнопки
+
+        // Настройки текстового поля
+        DateTime thisDay = DateTime.Today;
+
+        date = new TextBox();
+        date.Location = new Point(820, 20);
+        date.Width = 230;
+        date.Font = new Font("Arial", 11); 
+        date.Text = ($"дата создания: {thisDay.ToString("d")}");
+        date.BackColor = Color.Blue;
+
+
+        // Настройки кнопки ✔
         button = new Button();
-        button.Location = new Point(410, 18);
-        button.Size = new Size(80, 35);
-        button.Text = "Кнопка";
+        button.Location = new Point(1090, 5);
+        button.Size = new Size(50, 50);
+        button.Text = "✔";
         button.BackColor = SystemColors.Control;
-        
+        button.BackColor = Color.Green;
+
+
+        // Настройки кнопки ✔
+        button1 = new Button();
+        button1.Location = new Point(1145, 5);
+        button1.Size = new Size(50, 50);
+        button1.Text = "✘";
+        button1.BackColor = SystemColors.Control;
+        button1.BackColor = Color.Red;
+
+
+
         this.Controls.Add(textBox);
+        this.Controls.Add(date);
         this.Controls.Add(button);
+        this.Controls.Add(button1);
+
     }
 }
 
@@ -121,9 +128,7 @@ public class RedBlock : BasicBlock
 {
     public RedBlock()
     {
-        button.BackColor = Color.Red;
-        button.Text = "Красная";
-        this.BackColor = Color.LightPink;
+        this.BackColor = Color.BlueViolet;
     }
 }
 
@@ -132,29 +137,8 @@ public class StoryBlock : BasicBlock
 {
     public StoryBlock()
     {
-        textBox.Text = "расскажи историю";
-        button.BackColor = Color.Purple;
-        button.Text = "Рассказать";
-        this.BackColor = Color.Lavender;
+        textBox.Text = "история";
+        this.BackColor = Color.DarkRed;
     }
-}
-public class popaBlock : BasicBlock
-{
-    public popaBlock()
-    {
-        textBox.Text = "соси";
-        button.BackColor = Color.Green;
-        button.Text = "сосать";
-        this.BackColor = Color.Red;
-    }
-}
-public class Story1Block : BasicBlock
-{
-    public Story1Block()
-    {
-        textBox.Text = "мой попу";
-        button.BackColor = Color.AliceBlue;
-        button.Text = "мыть";
-        this.BackColor = Color.Red;
-    }
+    
 }
