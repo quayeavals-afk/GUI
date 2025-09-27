@@ -109,7 +109,6 @@ public partial class Form1 : Form
     {
         blockToRemove.BackColor = Color.LimeGreen;
         //RemoveBlock(blockToRemove);
-        MessageBox.Show("   Умничка!!!");
     }
 
 
