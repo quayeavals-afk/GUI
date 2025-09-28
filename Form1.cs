@@ -3,6 +3,8 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Text.Json; 
+using System.IO; 
 
 namespace GUI;
 
@@ -11,13 +13,18 @@ public partial class Form1 : Form
     private List<BasicBlock> blocks = new List<BasicBlock>();
     private int nextYPosition = 20;
     private int count = 0;
+    private string blocks_JSON = "blocks.json";
+
 
     private TextBox mainTextBox;
     public Form1()
     {
+        this.FormClosing += Form1_FormClosing;
+        this.Load += Form1_Load;
+
         this.AutoScroll = true;
 
-        this.Size = new Size(1255, 600);
+        this.Size = new Size(1260, 900);
 
         Button addButton = new Button();
         addButton.Text = "Добавить новый блок";
@@ -39,6 +46,7 @@ public partial class Form1 : Form
 
         nextYPosition = 100;
     }
+    
 
 
 
@@ -52,6 +60,15 @@ public partial class Form1 : Form
 
 
 
+private void Form1_Load(object sender, EventArgs e)
+    {
+        LoadBlocks();
+    }
+
+private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+    {
+        SaveBlocks();
+    }
 
 
 
@@ -59,6 +76,114 @@ public partial class Form1 : Form
 
 
 
+
+    // КЛАСС ДЛЯ СОХРАНЕНИЯ БЛОКА
+    private class BlockSaveData
+    {
+        public string Text { get; set; }  
+        public string Date {get; set;}
+        public string Number { get; set; } 
+        public string BackgroundColor { get; set; } 
+        public int PositionY { get; set; }          
+    }
+
+
+
+
+    private void SaveBlocks()
+    {
+        Console.Write($"1 count {count}");
+        List<BlockSaveData> blocksToSave = new List<BlockSaveData>();
+        
+
+        foreach (BasicBlock block in blocks)
+        {
+            BlockSaveData blockData = new BlockSaveData
+            {
+                Text = block.textBox.Text,
+                Date = block.date.Text,
+                Number = block.number.Text,
+                BackgroundColor = block.BackColor.Name,
+                PositionY = block.Location.Y
+            };
+            blocksToSave.Add(blockData);
+        }
+        Console.Write($"\n pop {blocksToSave.Count}");
+        
+        if (blocksToSave.Count == 0) { count = 0; }
+        BlockSaveData counterData = new BlockSaveData
+        {
+            Number = count.ToString()
+        };
+        blocksToSave.Insert(0, counterData);
+
+        JsonSerializerOptions options = new JsonSerializerOptions
+        {
+            WriteIndented = true
+        };
+        string jsonString = JsonSerializer.Serialize(blocksToSave, options);
+        File.WriteAllText(blocks_JSON, jsonString);
+    }
+
+
+
+
+
+
+    // МЕТОД ЗАГРУЗКИ БЛОКОВ
+    private void LoadBlocks()
+    {
+        string jsonString = File.ReadAllText(blocks_JSON);
+        List<BlockSaveData> loadedBlocks = JsonSerializer.Deserialize<List<BlockSaveData>>(jsonString);
+
+        if (loadedBlocks == null || loadedBlocks.Count == 0){return;}
+        if (int.TryParse(loadedBlocks[0].Number, out int savedCount)) { count = savedCount; }
+
+        for (int i = 1; i < loadedBlocks.Count; i++)
+        {
+            BlockSaveData blockData = loadedBlocks[i];
+            CreateBlockFromSavedData(blockData);
+        }
+    }
+
+
+    private void CreateBlockFromSavedData(BlockSaveData blockData)
+    {
+        BasicBlock newBlock = new BasicBlock();
+
+        newBlock.textBox.Text = blockData.Text;
+        newBlock.date.Text = blockData.Date;
+        newBlock.number.Text = blockData.Number;
+
+        Color color = Color.FromName(blockData.BackgroundColor);
+        newBlock.BackColor = color;
+
+        int numberValue;
+        if (int.TryParse(blockData.Number, out numberValue))
+        {
+            if (numberValue / 10 >= 1)
+            {
+                newBlock.number.Width += 32;
+            }
+            else
+            {
+                newBlock.number.Width = 32;
+            }
+        }
+        
+        newBlock.DeleteRequested += (s, e) => RemoveBlock((BasicBlock)s);
+        newBlock.ContinuedRequested += (s, e) => ContinuedBlock((BasicBlock)s);
+
+        newBlock.Location = new Point(20, blockData.PositionY);
+        this.Controls.Add(newBlock);
+        blocks.Add(newBlock);
+
+        nextYPosition = Math.Max(nextYPosition, blockData.PositionY + newBlock.Height + 10);
+    }
+
+
+
+    
 
 
 
@@ -92,7 +217,7 @@ public partial class Form1 : Form
         this.Controls.Add(newBlock);
         blocks.Add(newBlock);
 
-        
+
         newBlock.number.Text = $"{count}";
         if (count / 10 >= 1)
         {
@@ -108,7 +233,7 @@ public partial class Form1 : Form
     private void ContinuedBlock(BasicBlock blockToRemove)
     {
         blockToRemove.BackColor = Color.LimeGreen;
-        //RemoveBlock(blockToRemove);
+        //RemoveBlock(blockToRemove); //на всякий
     }
 
 
@@ -146,12 +271,6 @@ public partial class Form1 : Form
         nextYPosition = currentY;
     }
 }
-
-
-
-
-
-
 
 
 
